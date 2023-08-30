@@ -1,0 +1,38 @@
+﻿@model ASMC5.Models.ViewModels.DoiMatKhau
+@{
+    Layout = "_WebLayout";
+    ViewData["Title"] = "Đổi mật khẩu";
+}
+<div class="row">
+    <div class="col-12 d-flex justify-content-center">
+    <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Cập nhật thông tin cá nhân</h3>
+    <div class="col-md-4 changepass">
+        <form asp-action="DoiMatKhau" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Email" value="@ViewBag.email"/>
+            <div class="form-group">
+                <label asp-for="PassWord" class="control-label"></label>
+                <input asp-for="PassWord" class="form-control" />
+                <span asp-validation-for="PassWord" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NewPass" class="control-label"></label>
+                <input asp-for="NewPass" class="form-control" />
+                <span asp-validation-for="NewPass" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RetypePass" class="control-label"></label>
+                <input asp-for="RetypePass" class="form-control" />
+                <span asp-validation-for="RetypePass" class="text-danger"></span>
+            </div>
+            <div class="form-group d-flex justify-content-center">
+                <input type="submit" value="Đổi mật khẩu" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

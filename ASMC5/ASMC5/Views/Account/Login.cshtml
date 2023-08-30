@@ -1,0 +1,92 @@
+﻿@model ASMC5.Models.ViewModels.Login
+@{
+    Layout = "_LoginLayout";
+    ViewData["Title"] = "Login";
+}
+@section css{
+    <style>
+        .gradient-custom-2 {
+            /* fallback for old browsers */
+            background: #13ffff;
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: -webkit-linear-gradient(to right, cadetblue, cadetblue, cadetblue, cadetblue);
+            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            background: linear-gradient(to right, cadetblue, cadetblue, cadetblue, cadetblue);
+        }
+    </style>
+}
+
+<section class="h-100 gradient-form" style="background-color: #eee;">
+    <div>@Html.Raw(TempData["alert"])</div>
+    <div class="py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-10">
+                <div class="card rounded-3 text-black">
+                    <div class="row g-0">
+                        <div class="col-lg-6">
+                            <div class="card-body p-md-5 mx-md-4">
+
+                                <div class="text-center">
+                                    <img src="https://thietkeaz.com/files/02-04-18/thiet-ke-logo-nha-hang-04.jpg"
+                                         style="width: 185px;" alt="logo">
+
+                                    <h4 class="mt-1 mb-5 pb-1">Chào mừng đến với VIX FOOD</h4>
+                                </div>
+
+                                <form asp-action="Login" method="post" enctype="multipart/form-data">
+                                    <p>Vui lòng nhập tài khoản đăng nhập của bạn</p>
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                    <div class="form-group col-12">
+                                        <label asp-for="Email" class="control-label"></label>
+                                        <input asp-for="Email" class="form-control" />
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group col-12">
+                                        <label asp-for="PassWord" class="control-label">Mật khẩu</label>
+                                        <input asp-for="PassWord" class="form-control" />
+                                        <span asp-validation-for="PassWord" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group form-check col-12 ml-2">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" asp-for="role" /> Quản Lý Hoặc Nhân Viên?
+                                        </label>
+                                        <br />
+                                        <em class="text-danger ml-1">Lưu ý: Khách hàng không chọn vào ô này.</em>
+                                    </div>
+                                    <div class="text-center pt-1 mb-5 pb-1">
+                                        <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">
+                                            Đăng Nhập
+                                        </button>
+                                        <a class="text-muted" href="#!">Bạn quên mật khẩu?</a>
+                                    </div>
+
+                                    <div class="d-flex align-items-center justify-content-center pb-4">
+                                        <p class="mb-0 me-2">Bạn chưa có tài khoản?</p>
+                                        <a asp-action="DangKy" type="button" class="btn btn-outline-danger">Tạo Tài Khoản</a>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+                            <div class="text-dark px-3 py-4 p-md-5 mx-md-4">
+
+                                <h4 class="mb-4">
+                                    Nhà Hàng Ẩm Thực VIX là nhà hàng sở hữu một không gian ẩm thực ấm cúng với sự kết hợp tinh tế giữa văn hóa ẩm thực Việt Nam
+                                    và các nền văn hóa ẩm thực Á Đông..
+                                </h4>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

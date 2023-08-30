@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ASMC5.Models.DonHang>;
+@{
+    Layout = "_WebLayout";
+    ViewData["Title"] = "Lịch sử mua hàng";
+}
+@section css{
+    <link rel="stylesheet" href="~/css/HistoryStyle.css"/>
+}
+<div class="container mt-5">
+        <div class="d-flex justify-content-center row">
+            <div class="col-md-10">
+                <div class="rounded">
+                    <div class="table-responsive table-borderless">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Mã đơn hàng</th>
+                                    <th>Trạng Thái</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Ngày mua</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-body">
+                            @{
+                                int i = 1;
+                                foreach(var item in Model)
+                                {
+                                    <tr class="cell-1">
+                                    <td>@(i++)</td>
+                                    <td>@item.Id_DonHang</td>
+                                    <td><span class="badge badge-success">@item.TrangThai</span></td>
+                                    <td>@item.ThanhTienCoThue.ToString("0,000") VNĐ</td>
+                                    <td>@item.NgayDat.ToString("dd/MM/yyyy")</td>
+                                    <td>
+                                        <a class="btn btn-outline-primary"
+                                            asp-controller="DonHang" asp-action="Details" asp-route-id="@item.Id_DonHang" >
+                                            <i class="fa fa-ellipsis-h text-black-50"></i>
+                                          </a>
+                                    </td>
+                                    
+                                </tr>
+                                }
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

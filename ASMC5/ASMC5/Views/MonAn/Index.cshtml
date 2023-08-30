@@ -1,0 +1,74 @@
+﻿@model IEnumerable<ASMC5.Models.MonAn>
+@{
+    Layout = "_WebLayout";
+    ViewData["Title"] = "Món ăn";
+}
+<p>
+    <a asp-action="Create">Thêm món ăn</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhanLoai)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                <img src="~/Images/@item.Image" height=75 width=75/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhanLoai)
+            </td>
+            <td>
+                <a asp-action="Update" asp-route-id="@item.Id_MonAn">Chỉnh sửa</a> |
+                <a asp-action="Details" asp-route-id="@item.Id_MonAn">Chi tiết</a> 
+                <a asp-controller="Cart" asp-action="Buy" asp-route-id="@item.Id_MonAn">Chi tiết</a> 
+                <a onclick="return Delete()" asp-action="Delete" asp-route-id="@item.Id_MonAn" hidden>Xóa</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<script>
+    function Delete()
+    {
+         var xacNhan=confirm("Are you sure you want to detele?")
+        if(xacNhan)
+        {
+            return true;
+        }
+        return false;
+    }
+</script>

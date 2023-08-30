@@ -1,0 +1,181 @@
+﻿@{
+    Layout = "_WebLayout";
+    ViewData["Title"] = "Giỏ hàng";
+}
+
+@section css{
+    <link rel="stylesheet" href="~/css/ShowCart.css"/>
+}
+<section class="h-100 h-custom" style="background-color: cadetblue;">
+    <div class="container py-5 h-100" style="background-color: cadetblue">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body p-4">
+
+                        <div class="row">
+
+                            <div class="col-lg-7">
+                                <h5 class="mb-3">
+                                    <a asp-controller="HomePage" asp-action="Index" class="text-body">
+                                        <i class="fa fa-angle-left"></i>Tiếp Tục Mua Sắm
+                                    </a>
+                                </h5>
+                                <hr>
+
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <div>
+                                        <p class="mb-1">Shopping cart</p>
+                                        <p class="mb-0">Bạn có @ViewBag.count mặt hàng trong giỏ hàng của mình</p>
+                                    </div>
+                                </div>
+                                <div class="card mb-3">
+                                    @{
+                                        if (ViewBag.count > 0)
+                                        {
+                                            foreach (var item in ViewBag.cart)
+                                            {
+                                                var total = item.monAn.Price * item.Qty;
+                                                <div class="card mb-3">
+                                                    <div class="card-body">
+                                                        <div class="d-flex justify-content-between">
+                                                            <div class="d-flex flex-row align-items-center">
+                                                                <div>
+                                                                    <img src="~/Images/@item.monAn.Image"
+                                                                         class="img-fluid rounded-3" alt="Shopping item" style="width: 150px;">
+                                                                </div>
+                                                                <div class="ms-3">
+                                                                    <h5>@item.monAn.Name</h5>
+                                                                    <p class="small mb-0">@item.monAn.Description</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="d-flex flex-row align-items-center">
+                                                                <div style="width: 200px;">
+                                                                    <a asp-controller="Cart" asp-action="sub" asp-route-id="@item.monAn.Id_MonAn">-</a>
+                                                                    <span class="d-block">@item.Qty</span>
+                                                                    <span class="d-block ml-3">
+                                                                        <a asp-controller="Cart" asp-action="add" asp-route-id="@item.monAn.Id_MonAn">+</a>
+                                                                    </span>
+                                                                    <span class="d-block ml-5 font-weight-bold">@total VND</span>
+                                                                    <a onclick="return Delete()" asp-controller="Cart" asp-action="Remove" asp-route-id="@item.monAn.Id_MonAn"><i class="fa fa-trash-o ml-3 text-black-50"></i></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+
+                                <div class="card bg-primary text-white rounded-3">
+                                    <div class="card-body"style="background-color: cadetblue">
+                                        <div class="d-flex justify-content-between align-items-center mb-4">
+                                            <h5 class="mb-0">Card details</h5>
+                                          
+                                        </div>
+
+                                        
+                                        
+                                        <form class="mt-4">
+                                            @{
+                                                if (ViewBag.countCus == 0)
+                                                {
+                                                    <div class="form-outline form-white mb-4">
+                                                        <input type="text" id="typeName" class="form-control form-control-lg" siez="17"
+                                                               placeholder="Tên khách hàng" disabled />
+                                                        <label class="form-label" for="typeName">Tên khách hàng</label>
+                                                    </div>
+
+                                                    <div class="form-outline form-white mb-4">
+                                                        <input type="text" id="typeText" class="form-control form-control-lg" siez="17"
+                                                               placeholder="+84" minlength="19" maxlength="19" disabled />
+                                                        <label class="form-label" for="typeText">Số điện thoại</label>
+                                                    </div>
+
+                                                    <div class="form-outline form-white mb-4">
+                                                        <input type="text" id="typeText" class="form-control form-control-lg" siez="17"
+                                                               placeholder="Địa chỉ" minlength="19" maxlength="19" disabled />
+                                                        <label class="form-label" for="typeText">Địa chỉ</label>
+                                                    </div>
+                                                    <div><label class="credit-card-label"><em style="color:white;font-weight:bold">Lưu ý: Bạn cần đăng nhập trước khi đặt hàng</em></label></div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="form-outline form-white mb-4">
+                                                        <input type="text" id="typeName" class="form-control form-control-lg" siez="17"
+                                                               placeholder="@ViewBag.cus.Name" disabled />
+                                                        <label class="form-label" for="typeName">Tên khách hàng</label>
+                                                    </div>
+
+                                                    <div class="form-outline form-white mb-4">
+                                                        <input type="text" id="typeText" class="form-control form-control-lg" siez="17"
+                                                               placeholder="@ViewBag.cus.PhoneNo" minlength="19" maxlength="19" disabled />
+                                                        <label class="form-label" for="typeText">Số điện thoại</label>
+                                                    </div>
+
+                                                    <div class="form-outline form-white mb-4">
+                                                        <input type="text" id="typeText" class="form-control form-control-lg" siez="17"
+                                                               placeholder="@ViewBag.cus.Address" minlength="19" maxlength="19" disabled />
+                                                        <label class="form-label" for="typeText">Địa chỉ</label>
+                                                    </div>
+                                                    <div><label class="credit-card-label"><em style="color:white;font-weight:bold">Lưu ý: Bạn cần đăng nhập trước khi đặt hàng</em></label></div>
+                                                }
+                                            }
+                                        </form>
+                                        
+
+                                        <hr class="my-4">
+
+                                        <div class="d-flex justify-content-between">
+                                            <p class="mb-2">Thành tiền</p>
+                                            <p class="mb-2">@ViewBag.thanhtien</p>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <p class="mb-2">VAT</p>
+                                            <p class="mb-2">@ViewBag.vat</p>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between">
+                                            <p class="mb-2">Shipping</p>
+                                            <p class="mb-2">30,000</p>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between mb-4">
+                                            <p class="mb-2">Tổng tiền</p>
+                                            <p class="mb-2">@ViewBag.tongtien</p>
+                                        </div>
+
+                                        <a class="btn btn-info btn-block btn-lg" asp-controller="Cart" asp-action="thanhtoan">
+                                            <div class="d-flex justify-content-between">
+                                                <span>@ViewBag.tongtien VNĐ</span>
+                                                <span>Đặt hàng <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                                            </div>
+                                        </a>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+  <script>
+       function Delete()
+    {
+         var xacNhan=confirm("Bạn muốn xóa món ăn")
+        if(xacNhan)
+        {
+            return true;
+        }
+        return false;
+    }
+  </script>

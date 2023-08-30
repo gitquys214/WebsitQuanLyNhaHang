@@ -1,0 +1,127 @@
+﻿@model ASMC5.Models.KhachHang
+
+@{
+    Layout = "_LoginLayout";
+    ViewData["Title"] = "Đăng ký";
+
+}
+<div class="col-12">@Html.Raw(TempData["alert"])</div>
+<section class="vh-100 gradient-custom">
+  <div class="py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body p-4 p-md-5" style="background-color: cadetblue">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Đăng ký tài khoản</h3>
+            <form asp-action="DangKy" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                  </div>
+
+                </div>
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                  </div>
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 mb-4">
+
+                  <div class="form-outline">
+                    <label asp-for="BirthDay" class="control-label"></label>
+                <input asp-for="BirthDay" class="form-control" />
+                <span asp-validation-for="BirthDay" class="text-danger"></span>
+                  </div>
+
+                </div>
+                <div class="col-md-4 mb-4">
+
+                  <div class="form-outline">
+                     <label asp-for="Gender" class="control-label"></label>
+                <select asp-for="Gender" class="form-control"
+                    asp-items="@Html.GetEnumSelectList<Gender>()">
+                    <option value="">Chọn giới tính</option>
+                </select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+                  </div>
+
+                </div>
+                <div class="col-md-4 mb-4">
+
+                  <div class="form-outline">
+                      <label asp-for="PhoneNo" class="control-label"></label>
+                <input asp-for="PhoneNo" class="form-control" />
+                <span asp-validation-for="PhoneNo" class="text-danger"></span>
+                  </div>
+
+                </div>
+              </div>
+
+               <div class="row">
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                     <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+                  </div>
+
+                </div>
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                      <label asp-for="FbLink" class="control-label"></label>
+                <input asp-for="FbLink" class="form-control" />
+                <span asp-validation-for="FbLink" class="text-danger"></span>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                    <label asp-for="PassWord" class="control-label"></label>
+                <input asp-for="PassWord" class="form-control" />
+                <span asp-validation-for="PassWord" class="text-danger"></span>
+                  </div>
+
+                </div>
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                       <label asp-for="RetypePassWord" class="control-label"></label>
+                <input asp-for="RetypePassWord" class="form-control" />
+                <span asp-validation-for="RetypePassWord" class="text-danger"></span>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="mt-4 pt-2">
+                <input class="btn btn-primary btn-lg" type="submit" value="Đăng Ký" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
